@@ -1,6 +1,6 @@
 # SysVista Private Limited — Website
 
-A fast, responsive, SEO-optimized one-page website for **SysVista Private Limited**, an IT service provider based in Khargone.
+A fast, responsive, SEO-optimized one-page website for **SysVista Private Limited**, a global IT service provider.
 
 ## Files
 
@@ -39,7 +39,7 @@ Swap the `action` URL in `index.html` (and the `fetch()` URL in `script.js`) for
 
 ## Before going live — replace these placeholders
 - **Domain**: all SEO tags assume `https://sysvista.tech/`. If the domain differs, update the URLs in `index.html`, `robots.txt`, and `sitemap.xml`.
-- **Region**: `addressRegion` is set to *Madhya Pradesh* in the structured data — adjust if needed.
+- **Structured data**: uses a global `Organization` schema (no physical address). Add one back if you open a public office.
 - **Stats** (uptime, projects, satisfaction %): edit real numbers in `index.html`.
 - **Phone number**: none was provided; add one in the Contact section and footer if you want it shown.
 - **OG image**: `og-image.svg` works, but some social platforms prefer PNG. Export a 1200×630 PNG for best previews and update the `og:image` / `twitter:image` tags.
