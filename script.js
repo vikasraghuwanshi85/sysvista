@@ -23,6 +23,39 @@
     });
   }
 
+  // Scrollspy: highlight the nav link for the section currently in view.
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-menu a'));
+  var spySections = navLinks
+    .map(function (a) {
+      var href = a.getAttribute('href') || '';
+      if (href.charAt(0) !== '#' || href.length < 2) return null;
+      var el = document.getElementById(href.slice(1));
+      return el ? { link: a, el: el } : null;
+    })
+    .filter(Boolean);
+
+  if (spySections.length) {
+    var updateActive = function () {
+      var pos = window.scrollY + 120; // offset for the sticky header
+      var currentId = null;
+      spySections.forEach(function (s) {
+        if (s.el.offsetTop <= pos) currentId = s.el.id;
+      });
+      spySections.forEach(function (s) {
+        var on = s.el.id === currentId;
+        s.link.classList.toggle('active', on);
+        if (on) {
+          s.link.setAttribute('aria-current', 'true');
+        } else {
+          s.link.removeAttribute('aria-current');
+        }
+      });
+    };
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive);
+    updateActive();
+  }
+
   // Contact form: submit via fetch to FormSubmit's AJAX endpoint so the
   // user stays on the page and sees an inline confirmation message.
   var form = document.getElementById('contactForm');

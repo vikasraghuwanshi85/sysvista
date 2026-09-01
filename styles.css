@@ -186,11 +186,11 @@ img { max-width: 100%; display: block; }
   transition: background .15s, color .15s;
 }
 .nav-menu a:hover { background: var(--bg-alt); text-decoration: none; color: var(--blue); }
-.nav-cta {
-  background: var(--navy);
-  color: #fff !important;
+.nav-menu a.active {
+  background: var(--bg-alt);
+  color: var(--blue);
+  font-weight: 600;
 }
-.nav-cta:hover { background: var(--blue) !important; }
 
 .nav-toggle {
   display: none;
@@ -532,7 +532,6 @@ img { max-width: 100%; display: block; }
   .nav-menu.open { display: flex; }
   .nav-menu li { width: 100%; }
   .nav-menu a { display: block; width: 100%; padding: 13px 16px; }
-  .nav-cta { text-align: center; margin-top: 6px; }
 }
 
 @media (max-width: 560px) {
