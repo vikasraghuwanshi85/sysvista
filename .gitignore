@@ -1,0 +1,7 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+
+# Dependency dirs (none currently, but safe to ignore)
+node_modules/
