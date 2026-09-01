@@ -530,8 +530,9 @@ img { max-width: 100%; display: block; }
     display: none;
   }
   .nav-menu.open { display: flex; }
-  .nav-menu a { padding: 12px 14px; }
-  .nav-cta { text-align: center; }
+  .nav-menu li { width: 100%; }
+  .nav-menu a { display: block; width: 100%; padding: 13px 16px; }
+  .nav-cta { text-align: center; margin-top: 6px; }
 }
 
 @media (max-width: 560px) {
