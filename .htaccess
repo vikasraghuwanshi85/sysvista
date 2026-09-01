@@ -1,0 +1,28 @@
+# SysVista static site — caching + basics for Hostinger (Apache/LiteSpeed)
+
+# Serve index.html for the site root
+DirectoryIndex index.html
+
+<IfModule mod_headers.c>
+  # HTML: always revalidate so content updates appear immediately after deploy
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate, max-age=0"
+  </FilesMatch>
+
+  # Static assets: cache hard (filenames change when you change them)
+  <FilesMatch "\.(css|js|svg|png|jpe?g|gif|ico|webp|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# Gzip/deflate compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml
+</IfModule>
+
+# Force HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>

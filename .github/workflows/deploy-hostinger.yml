@@ -1,0 +1,46 @@
+name: Deploy to Hostinger (FTP)
+
+# Publishes the site to Hostinger over FTPS on every push to main.
+# Requires four repository secrets (Settings → Secrets and variables → Actions):
+#   FTP_SERVER      – Hostinger FTP host (e.g. ftp.sysvista.tech or the IP in hPanel → Files → FTP Accounts)
+#   FTP_USERNAME    – FTP account username (e.g. u123456789.sysvista)
+#   FTP_PASSWORD    – FTP account password
+#   FTP_SERVER_DIR  – target web folder, WITH a trailing slash (e.g. public_html/)
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    # Skip cleanly until the FTP secrets have been added, so the run isn't a red X.
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTPS
+        if: ${{ env.FTP_SERVER != '' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          # Target folder on Hostinger (must end with "/"). Set via secret so it
+          # can't accidentally point at the wrong site's public_html.
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./
+          # Don't upload repo/CI files to the web root.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/node_modules/**
+            README.md
+            .gitignore
+            .nojekyll
+            CNAME
